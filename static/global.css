@@ -1,0 +1,82 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.main-header {
+    background-color: #2d2d2d;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width: 400px; /* Increased the width for a horizontal layout */
+    margin: 1rem;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-img {
+
+    width: 150px;
+    height: 150px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    padding-left: 1rem;
+}
+
+.card-info {
+    font-size: 1rem;
+    color: #555;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
+
+.fetch-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.fetch-button:hover {
+    background-color: #0056b3;
+}
