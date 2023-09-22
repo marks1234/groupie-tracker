@@ -39,32 +39,38 @@
                 console.error(`Error fetching ${endpoint}:`, error);
             }
         }
-        
+    
         async function loadArtists() {
-        try {
-            const artists = await fetchData('/artists');
-            const artistsContainer = document.getElementById('artists-container');
-
-            // Loop through the artists and display them
-            artists.forEach(artist => {
-                const artistDiv = document.createElement('div');
-                artistDiv.className = 'artist-card';
-
-                artistDiv.innerHTML = `
-                    <img src="${artist.Image}" alt="${artist.Name}">
-                    <h2>${artist.Name}</h2>
-                    <p><strong>Year Started:</strong> ${artist.CreationDate}</p>
-                    <p><strong>First Album:</strong> ${artist.FirstAlbum}</p>
-                `;
-
-                artistsContainer.appendChild(artistDiv);
-            });
-        } catch (error) {
-            console.error('Error loading data:', error);
+            try {
+                const artists = await fetchData('/artists');
+                const artistsContainer = document.getElementById('artists-container');
+    
+                // Loop through the artists and display them
+                artists.forEach(artist => {
+                    const artistDiv = document.createElement('div');
+                    artistDiv.className = 'artist-card';
+    
+                    artistDiv.innerHTML = `
+                    <div class="card">
+                        <img src="${artist.Image}" alt="${artist.Name}">
+                        <div>
+                            <h2 class="card-title">${artist.Name}</h2>
+                            <p class="card-info"><strong>Year Started:</strong> ${artist.CreationDate}</p>
+                            <p class="card-info"><strong>First Album:</strong> ${artist.FirstAlbum}</p>
+                        </div>
+                    </div>
+                    `;
+    
+                    artistsContainer.appendChild(artistDiv);
+                });
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
         }
-    }
-
-    loadArtists();
+    
+        // Call the loadArtists function asynchronously
+        loadArtists();
     </script>
+    
 </body>
 </html>
