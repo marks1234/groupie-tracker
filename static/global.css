@@ -2,12 +2,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
-    color: #333;
+    background-color: #FAF5F0;
+    color: #262322;
 }
 
 .main-header {
-    background-color: #2d2d2d;
+    background-color: #262322;
     color: white;
     text-align: center;
     padding: 1rem;
@@ -68,7 +68,7 @@ body {
 
 .fetch-button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #5a83ff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -78,5 +78,5 @@ body {
 }
 
 .fetch-button:hover {
-    background-color: #0056b3;
+    background-color: #7D84B2;
 }
