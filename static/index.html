@@ -12,27 +12,19 @@
 
     <main class="main-content">
 
-        <div class="card-container" id="artists-container">
-            <!-- Space for adding small cards -->
-            <!-- <div class="card">
-                <img src="https://groupietrackers.herokuapp.com/api/images/queen.jpeg" class="card-img" alt="Example Band">
-                <div>
-                    <h2 class="card-title">Queen</h2>
-                    <p class="card-info">Year Started: 1970</p>
-                    <p class="card-info">First Album: 1973</p>
-                </div>
-            </div> -->
-            
+        <div class="card-container" id="artists-container">            
         </div>
 
         <!-- Button that leads to a dynamic website -->
-        <button class="fetch-button" onclick="fetchData()">Fetch More Data</button>
+        <button class="fetch-button" onclick="fetchData('artists')">Fetch More Data</button>
 
     </main>
     <script>
         async function fetchData(endpoint) {
             try {
+                console.log(endpoint)
                 const response = await fetch(`http://localhost:8080${endpoint}`);
+                console.log(response)
                 const data = await response.text(); // Get the response body as text
                 return JSON.parse(data); // Parse the text as JSON
             } catch (error) {
@@ -44,19 +36,23 @@
             try {
                 const artists = await fetchData('/artists');
                 const artistsContainer = document.getElementById('artists-container');
+                console.log(artists)
     
                 // Loop through the artists and display them
                 artists.forEach(artist => {
+                    console.log(artist)
+                    // let responseObjects
+                    // document.addEventListener(window.onload, () => )
                     const artistDiv = document.createElement('div');
                     artistDiv.className = 'artist-card';
     
                     artistDiv.innerHTML = `
                     <div class="card">
-                        <img src="${artist.Image}" alt="${artist.Name}">
+                        <img src="${artist.image}" alt="${artist.name}">
                         <div>
-                            <h2 class="card-title">${artist.Name}</h2>
-                            <p class="card-info"><strong>Year Started:</strong> ${artist.CreationDate}</p>
-                            <p class="card-info"><strong>First Album:</strong> ${artist.FirstAlbum}</p>
+                            <h2 class="card-title">${artist.name}</h2>
+                            <p class="card-info"><strong>Year Started:</strong> ${artist.creationDate}</p>
+                            <p class="card-info"><strong>First Album:</strong> ${artist.firstAlbum}</p>
                         </div>
                     </div>
                     `;

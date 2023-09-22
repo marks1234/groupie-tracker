@@ -47,6 +47,8 @@ func GetApi() []Response {
 }
 
 func BandsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	// Call the GetApi function to fetch the data
 	bands := GetApi()
 
