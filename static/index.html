@@ -12,59 +12,16 @@
 
     <main class="main-content">
 
-        <div class="card-container">
+        <div class="card-container" id="artists-container">
             <!-- Space for adding small cards -->
-            <div class="card">
+            <!-- <div class="card">
                 <img src="https://groupietrackers.herokuapp.com/api/images/queen.jpeg" class="card-img" alt="Example Band">
                 <div>
                     <h2 class="card-title">Queen</h2>
                     <p class="card-info">Year Started: 1970</p>
                     <p class="card-info">First Album: 1973</p>
                 </div>
-            </div>
-            <div class="card">
-                <img src="https://groupietrackers.herokuapp.com/api/images/soja.jpeg" class="card-img" alt="SOJA">
-                <div>
-                    <h2 class="card-title">SOJA</h2>
-                    <p class="card-info">Year Started: 1997</p>
-                    <p class="card-info">First Album: 05-06-2002</p>
-                </div>
-            </div>
-            
-            <div class="card">
-                <img src="https://groupietrackers.herokuapp.com/api/images/pinkfloyd.jpeg" class="card-img" alt="Pink Floyd">
-                <div>
-                    <h2 class="card-title">Pink Floyd</h2>
-                    <p class="card-info">Year Started: 1965</p>
-                    <p class="card-info">First Album: 05-08-1967</p>
-                </div>
-            </div>
-            
-            <div class="card">
-                <img src="https://groupietrackers.herokuapp.com/api/images/scorpions.jpeg" class="card-img" alt="Scorpions">
-                <div>
-                    <h2 class="card-title">Scorpions</h2>
-                    <p class="card-info">Year Started: 1965</p>
-                    <p class="card-info">First Album: 21-04-1979</p>
-                </div>
-            </div>
-            
-            <div class="card">
-                <img src="https://groupietrackers.herokuapp.com/api/images/xxxtentacion.jpeg" class="card-img" alt="XXXTentacion">
-                <div>
-                    <h2 class="card-title">XXXTentacion</h2>
-                    <p class="card-info">Year Started: 2013</p>
-                    <p class="card-info">First Album: 07-09-2017</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="https://groupietrackers.herokuapp.com/api/images/macmiller.jpeg" class="card-img" alt="Mac Miller">
-                <div>
-                    <h2 class="card-title">Mac Miller</h2>
-                    <p class="card-info">Year Started: 2007</p>
-                    <p class="card-info">First Album: 29-06-2013</p>
-                </div>
-            </div>
+            </div> -->
             
         </div>
 
@@ -72,6 +29,42 @@
         <button class="fetch-button" onclick="fetchData()">Fetch More Data</button>
 
     </main>
+    <script>
+        async function fetchData(endpoint) {
+            try {
+                const response = await fetch(`http://localhost:8080${endpoint}`);
+                const data = await response.text(); // Get the response body as text
+                return JSON.parse(data); // Parse the text as JSON
+            } catch (error) {
+                console.error(`Error fetching ${endpoint}:`, error);
+            }
+        }
+        
+        async function loadArtists() {
+        try {
+            const artists = await fetchData('/artists');
+            const artistsContainer = document.getElementById('artists-container');
 
+            // Loop through the artists and display them
+            artists.forEach(artist => {
+                const artistDiv = document.createElement('div');
+                artistDiv.className = 'artist-card';
+
+                artistDiv.innerHTML = `
+                    <img src="${artist.Image}" alt="${artist.Name}">
+                    <h2>${artist.Name}</h2>
+                    <p><strong>Year Started:</strong> ${artist.CreationDate}</p>
+                    <p><strong>First Album:</strong> ${artist.FirstAlbum}</p>
+                `;
+
+                artistsContainer.appendChild(artistDiv);
+            });
+        } catch (error) {
+            console.error('Error loading data:', error);
+        }
+    }
+
+    loadArtists();
+    </script>
 </body>
 </html>

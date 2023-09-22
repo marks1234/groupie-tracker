@@ -22,7 +22,7 @@ type Response struct {
 	FirstAlbum   string   `json:"firstAlbum"`
 }
 
-func GetApi() {
+func GetApi() []Response {
 	response, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
 	if err != nil {
 		fmt.Print(err.Error())
@@ -43,10 +43,26 @@ func GetApi() {
 		responseObjects = append(responseObjects, responseObject)
 	}
 	fmt.Println(responseObjects)
+	return responseObjects
+}
+
+func BandsHandler(w http.ResponseWriter, r *http.Request) {
+	// Call the GetApi function to fetch the data
+	bands := GetApi()
+
+	// Set the response content type to JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Encode and send the bands data as JSON
+	if err := json.NewEncoder(w).Encode(bands); err != nil {
+		log.Println(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
 }
 
 func main() {
-	GetApi()
+	http.HandleFunc("/artists", BandsHandler)
 
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileServer)
