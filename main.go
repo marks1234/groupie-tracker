@@ -13,7 +13,7 @@ const serverPort = 8080
 func main() {
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileServer)
-
+	
 	fmt.Printf("Starting server at port 8080\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
@@ -31,7 +31,7 @@ func GetApi() {
     //     fmt.Print(err.Error())
     // }
 	// defer res.Body.Close()
-	response, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	response, err := http.Get("https://groupietrackers.herokuapp.com/api/")
 
     if err != nil {
         fmt.Print(err.Error())
