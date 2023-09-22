@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"os"
 	"io/ioutil"
+	"encoding/json"
+	// "html/template"
 )
 
 const serverPort = 8080
 
-type Response struct {
+type BandInfo struct {
 	Id		int		  `json:"id"`
 	Image 	string	  `json:"image"`
     Name    string    `json:"name"`
@@ -21,7 +23,7 @@ type Response struct {
 
 
 
-func GetApi() {
+func GetApi() ([]BandInfo, error){
 	// url := "https://groupietrackers.herokuapp.com/api/artists"
 	// req, err := http.NewRequest("GET", url, nil)
 	// if err != nil {
@@ -38,15 +40,45 @@ func GetApi() {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
-
+	defer response.Body.Close()
 	responseData, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(string(responseData))
+    if err != nil {
+        return nil, err
+    }
+
+    var bands []BandInfo
+    if err := json.Unmarshal(responseData, &bands); err != nil {
+        return nil, err
+    }
+
+    return bands, nil
 }
 
 func main() {
+	// doesn't work for now
+	// bands, err := GetApi()
+	// if err != nil {
+    //     log.Fatal(err)
+    // }
+
+	//     // Define an HTTP handler to serve the existing HTML page with band information.
+	// http.HandleFunc("/bands", func(w http.ResponseWriter, r *http.Request) {
+	// 		// Parse the HTML template from the file.
+	// 	tmpl, err := template.ParseFiles("index.html")
+	// 		if err != nil {
+	// 			log.Println(err)
+	// 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	// 			return
+	// 		}
+	
+	// 		// Execute the template with the 'bands' data and write it to the response.
+	// 	if err := tmpl.Execute(w, bands); err != nil {
+	// 			log.Println(err)
+	// 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	// 			return
+	// 		}
+	// 	})
+
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileServer)
 	
@@ -54,5 +86,4 @@ func main() {
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
-	GetApi()
 }
