@@ -11,7 +11,7 @@ import (
 	// "html/template"
 )
 
-const serverPort = 8080
+// const serverPort = 8080
 
 type Response struct {
 	Id           int      `json:"id"`
@@ -30,7 +30,7 @@ func GetApi() []Response {
 	}
 	defer response.Body.Close()
 	// fmt.Println(response.Body)
-	responseData, err := ioutil.ReadAll(response.Body)
+	responseData, _ := ioutil.ReadAll(response.Body)
 
 	// var bands []BandInfo = string(responseData)
 	var responseObjects []Response
