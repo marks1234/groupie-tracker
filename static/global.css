@@ -29,6 +29,7 @@ body {
 }
 
 .card {
+    cursor: pointer!important;
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
@@ -44,6 +45,7 @@ body {
 
 
 .card:hover {
+    cursor: pointer!important;
     transform: translateY(-10px);
 }
 
