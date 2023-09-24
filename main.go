@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -11,8 +12,6 @@ import (
 	// "html/template"
 )
 
-// const serverPort = 8080
-
 type Response struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`
@@ -20,7 +19,10 @@ type Response struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
+	Locations    string   `json:"locations"`
 }
+
+var tmpl = template.Must(template.ParseFiles("index.html"))
 
 func GetApi() []Response {
 	response, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
@@ -52,22 +54,16 @@ func BandsHandler(w http.ResponseWriter, r *http.Request) {
 	// Call the GetApi function to fetch the data
 	bands := GetApi()
 
-	// Set the response content type to JSON
-	w.Header().Set("Content-Type", "application/json")
-
-	// Encode and send the bands data as JSON
-	if err := json.NewEncoder(w).Encode(bands); err != nil {
-		log.Println(err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
+	if err := tmpl.ExecuteTemplate(w, "index.html", bands); err != nil {
+		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}
 }
 
 func main() {
-	http.HandleFunc("/artists", BandsHandler)
+	// http.HandleFunc("/artists", BandsHandler)
 
-	fileServer := http.FileServer(http.Dir("./static"))
-	http.Handle("/", fileServer)
+	// fileServer := http.FileServer(http.Dir("./static"))
+	http.HandleFunc("/", BandsHandler)
 
 	fmt.Printf("Starting server at port 8080\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {

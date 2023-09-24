@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Groupie Trackers</title>
+    <link rel="stylesheet" type="text/css" href="global.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Groupie Trackers</h1>
+    </header>
+    <main class="main-content">
+        <div class="card-container" id="artists-container">
+          {{range .}}
+          <div class="card">
+                      <div>
+                          <img class="card-img" src="{{.Image}}" alt="{{.Name}}">
+                          <h2 class="card-title">{{.Name}}</h2>
+                          <p class="card-info"><strong>Year Started:</strong>{{.CreationDate}}</p>
+                          <p class="card-info"><strong>First Album:</strong> {{.FirstAlbum}}</p>
+                          <p class="card-info"><strong>Members:</strong> {{range .Members}}{{.}}, {{end}}</p>
+                          <p class="card-info"><strong>Locations:</strong> {{.Locations}}</p>
+                      </div>
+          </div>
+          {{end}}
+        </div>
+        <!-- Button that leads to a dynamic website -->
+        <button class="fetch-button" onclick="fetchData('artists')">Fetch More Data</button>
+    </main>
+    <!-- <script src="js.js"></script> -->
+    
+</body>
+</html>
