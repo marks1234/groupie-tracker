@@ -13,18 +13,22 @@
         <div class="card-container" id="artists-container">
           {{range .}}
           <div class="card" onclick="window.location.href='{{.Name}}'">
-                      <div>
+                    <div>
                           <img class="card-img" src="{{.Image}}" alt="{{.Name}}">
                           <h2 class="card-title">{{.Name}}</h2>
                           <p class="card-info"><strong>Year Started: </strong>{{.CreationDate}}</p>
                           <p class="card-info"><strong>First Album:</strong> {{.FirstAlbum}}</p>
-                          <p class="card-info"><strong>Members:</strong> {{range .Members}}{{.}}, {{end}}</p>
-                      </div>
+                          <p class="card-info"><strong>Members:</strong> {{range $i, $member := .Members}}{{if $i}}, {{end}}{{.}}{{end}}</p>
+                          <p class="card-info"><strong>location:</strong>
+                            
+                    </div>
           </div>
           {{end}}
         </div>
         <!-- Button that leads to a dynamic website -->
-        <button class="fetch-button" onclick="fetchData('artists')">Fetch More Data</button>
+        <!-- <button class="fetch-button" onclick="fetchData('artists')">Fetch More Data</button> -->
+        <!-- I think its okay without a button on the main page because we have a dynamic card which
+             makes an API call for the selected band so  ¯\_(ツ)_/¯-->
     </main>
     <!-- <script src="js.js"></script> -->
     
