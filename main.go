@@ -78,7 +78,7 @@ func main() {
 	// fileServer := http.FileServer(http.Dir("./static"))
 	// fileServer := http.FileServer(http.Dir("./static"))
 
-	http.Handle("/static", http.FileServer(http.Dir("./static")))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", BandsHandler)
 	for _, res := range GetApi() {
 		res := res
