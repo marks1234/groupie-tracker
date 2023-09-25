@@ -10,7 +10,10 @@ import (
 	// "html/template"
 )
 
-type Locations struct{}
+type LocationDate struct {
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
+} //trying to access the relation api
 
 type Response struct {
 	Id           int      `json:"id"`
@@ -35,7 +38,6 @@ func GetApi() []Response {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
-
 	defer response.Body.Close()
 	// fmt.Println(response.Body)
 
@@ -45,9 +47,28 @@ func GetApi() []Response {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
-
 	// fmt.Println(responseObjects)
 	return responseObjects
+}
+
+// this is where I stopped, I wanted to try to put both calls in the same function :/
+func GetApiRelation() []LocationDate {
+	relation, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
+	if err != nil {
+		fmt.Print(err.Error())
+		os.Exit(1)
+	}
+	defer relation.Body.Close()
+	// fmt.Println(response.Body)
+
+	// var bands []BandInfo = string(responseData)
+	var relationObjects []LocationDate
+	if err := json.NewDecoder(relation.Body).Decode(&relationObjects); err != nil {
+		fmt.Print(err.Error())
+		os.Exit(1)
+	}
+	// fmt.Println(relationObjects)
+	return relationObjects
 }
 
 func BandsHandler(w http.ResponseWriter, r *http.Request) {
