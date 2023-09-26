@@ -11,20 +11,17 @@ import (
 )
 
 type LocationDate struct {
-	ID             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
-} //trying to access the relation api
+} // trying to access the relation api
 
 type Response struct {
-	Id           int      `json:"id"`
-	Image        string   `json:"image"`
-	Name         string   `json:"name"`
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-	Locations    string   `json:"locations"`
-	ConcertDates string   `json:"concertDates"`
-	Relations    string   `json:"relations"`
+	Id             int      `json:"id"`
+	Image          string   `json:"image"`
+	Name           string   `json:"name"`
+	Members        []string `json:"members"`
+	CreationDate   int      `json:"creationDate"`
+	FirstAlbum     string   `json:"firstAlbum"`
+	DatesLocations map[string][]string
 }
 
 var (
@@ -51,24 +48,22 @@ func GetApi() []Response {
 	return responseObjects
 }
 
-// this is where I stopped, I wanted to try to put both calls in the same function :/
-func GetApiRelation() []LocationDate {
-	relation, err := http.Get("https://groupietrackers.herokuapp.com/api/relation")
+// I rewrote the function getLocation to a struct method
+func (r *Response) getLocation() {
+	response, err := http.Get("http://groupietrackers.herokuapp.com/api/relation/" + fmt.Sprint(r.Id))
 	if err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
-	defer relation.Body.Close()
-	// fmt.Println(response.Body)
+	defer response.Body.Close()
 
-	// var bands []BandInfo = string(responseData)
-	var relationObjects []LocationDate
-	if err := json.NewDecoder(relation.Body).Decode(&relationObjects); err != nil {
+	var loca LocationDate
+	if err := json.NewDecoder(response.Body).Decode(&loca); err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
-	// fmt.Println(relationObjects)
-	return relationObjects
+
+	r.DatesLocations = loca.DatesLocations
 }
 
 func BandsHandler(w http.ResponseWriter, r *http.Request) {
@@ -88,6 +83,7 @@ func BandsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PrivateHandler(w http.ResponseWriter, r *http.Request, res Response) {
+	res.getLocation()
 	if err := tmpl_gotcha.ExecuteTemplate(w, "gotcha.html", []Response{res}); err != nil {
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 	}

@@ -11,13 +11,23 @@
     <main class="main-content">
         <div class="card-container" id="artists-container">
           {{range .}}
-          <div class="card">
+          <div class="card-nohover">
                 <div>
                     <img class="card-img" src="{{.Image}}" alt="{{.Name}}">
                     <h2 class="card-title">{{.Name}}</h2>
                     <p class="card-info"><strong>Year Started: </strong>{{.CreationDate}}</p>
                     <p class="card-info"><strong>First Album:</strong> {{.FirstAlbum}}</p>
                     <p class="card-info"><strong>Members:</strong> {{range $i, $member := .Members}}{{if $i}}, {{end}}{{.}}{{end}}</p>
+                    <div>
+                        {{range $location, $dates := .DatesLocations}}
+                            <p><strong>Location:</strong> {{$location}}</p>
+                            <p><strong>Dates:</strong> 
+                                {{range $i, $date := $dates}}
+                                    {{if $i}}, {{end}}{{$date}}
+                                {{end}}
+                            </p>
+                        {{end}}
+                    </div>
                 </div>
           </div>
           {{end}}

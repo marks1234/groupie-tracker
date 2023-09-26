@@ -28,6 +28,20 @@ body {
     justify-content: center;
 }
 
+.card-nohover {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width: 400px; /* Increased the width for a horizontal layout */
+    margin: 1rem;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
 .card {
     cursor: pointer!important;
     display: grid;
