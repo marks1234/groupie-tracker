@@ -62,7 +62,3 @@ The backend of Groupie Trackers consumes a RESTful API to fetch data about bands
 - `/api/dates`: Access information about concert dates.
 - `/api/relation`: Retrieve relations between artists, locations, and dates.
 
-
-- Thanks to the creators of the Go programming language.
-- Inspired by the power of client-server architecture and RESTful APIs.
-
