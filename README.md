@@ -66,8 +66,3 @@ The backend of Groupie Trackers consumes a RESTful API to fetch data about bands
 - Thanks to the creators of the Go programming language.
 - Inspired by the power of client-server architecture and RESTful APIs.
 
-## Contact
-
-If you have any questions or need assistance, feel free to contact us at [your_email@example.com](mailto:your_email@example.com).
-
-Happy tracking those groupies! 🎶🎤🎸
