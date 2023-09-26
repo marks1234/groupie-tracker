@@ -3,8 +3,9 @@
 Groupie Trackers is a web application that utilizes a Go-based backend to retrieve and manipulate data from a given API, enabling the creation of a user-friendly website to display information about bands and artists, their concert locations, dates, and their relations. This project also focuses on implementing client-server communication through various user-triggered actions.
 
 ## Authors
-Marco Kuzmina [Gitea](https://01.kood.tech/git/mkuzmina)
-Daniela Burnaz [Gitea](https://01.kood.tech/git/aburnaz)
+
+- Marco Kuzmina ([Gitea](https://01.kood.tech/git/mkuzmina))
+- Aburnaz ([Gitea](https://01.kood.tech/git/aburnaz))
 
 ## Features
 
