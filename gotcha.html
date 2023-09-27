@@ -20,8 +20,8 @@
                     <p class="card-info"><strong>Members:</strong> {{range $i, $member := .Members}}{{if $i}}, {{end}}{{.}}{{end}}</p>
                     <div>
                         {{range $location, $dates := .DatesLocations}}
-                            <p><strong>Location:</strong> {{$location}}</p>
-                            <p><strong>Dates:</strong> 
+                            <p class="card-info"><strong>Location:</strong> {{$location}}</p>
+                            <p class="card-info"><strong>Dates:</strong> 
                                 {{range $i, $date := $dates}}
                                     {{if $i}}, {{end}}{{$date}}
                                 {{end}}
