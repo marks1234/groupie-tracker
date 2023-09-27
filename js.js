@@ -1,3 +1,5 @@
+//old js code, we are not actually using it anywhere
+
 async function fetchData(endpoint) {
     try {
         console.log(endpoint)
