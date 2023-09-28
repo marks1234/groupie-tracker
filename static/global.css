@@ -95,3 +95,12 @@ body {
 .fetch-button:hover {
     background-color: #7D84B2;
 }
+
+/* mobile responsiveness */
+@media (max-width: 768px) {
+    .card-nohover,
+    .card {
+        width: 100%; 
+        margin: 0.5rem; /* space between cards on mobile*/
+    }
+}
