@@ -35,7 +35,7 @@ To run Groupie Trackers, follow these steps:
 1. Clone the repository:
 
 ```bash
-git clone https://01.kood.tech/git/mkuzmina/groupie-tracker.git
+git clone https://github.com/marks1234/groupie-tracker.git
 ```
 
 2. Navigate to the project directory:
